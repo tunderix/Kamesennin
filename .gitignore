@@ -1,3 +1,6 @@
+# Auth tokens for bot
+auth.json
+
 # Logs
 logs
 *.log
