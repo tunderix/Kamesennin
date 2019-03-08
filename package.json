@@ -4,6 +4,9 @@
     "description": "Discord bot for keeping Jontka occupied.",
     "main": "bot.js",
     "author": "Ionisaatio",
+    "scripts": {
+      "start": "node index.js"   
+    },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "winston": "^3.2.1"
