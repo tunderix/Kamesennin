@@ -18,14 +18,18 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '!') {
+    if (message.substring(0, 1) == '?') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-       
+        var messageToBeSent = ''+user+', you deserve to be punished! KaameehaameeHAAAAAA!'
         args = args.splice(1);
         switch(cmd) {
+            // !ping
+            case 'kamehameha':
+                bot.sendMessage({
+                    to: channelID,
+                    message: messageToBeSent
+                });
             // !ping
             case 'ping':
                 bot.sendMessage({
