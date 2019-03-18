@@ -1,4 +1,4 @@
-import botCommandCharacter from  './Utils/Constants'
+import botCommandCharacter from  './Utils/Constants.js'
 import commands from './Commands'
 import Discord from 'discord.io'
 
@@ -22,6 +22,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
      }
 });
 
+// Listener for starting the bot
+bot.on('ready', function (evt) {
+    console.log('Connected');
+    console.log('Logged in as: ');
+    console.log(bot.username + ' - (' + bot.id + ')');
+});
+
 const commandArguments = (message) => {
     return message.substring(1).split(' ');
 }
@@ -32,7 +39,7 @@ const isCommand = (message) => {
 // Find command from given arguments and commandlist. 
 const currentCommand = (argument) => {
     // By default take the first command from the list
-    const returnableCommand = commands[0]
+    var returnableCommand = commands[0]
 
     // Match command into argument and prepare to return it.
     commands.forEach(command => {

@@ -1,1 +1,3 @@
-export const botCommandCharacter = '!';
+const botCommandCharacter = '!';
+
+export default botCommandCharacter;

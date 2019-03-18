@@ -1,8 +1,9 @@
-import bot from './src/bot'
+//import bot from './bot.js'
 
-// Listener for starting the bot
-bot.on('ready', function (evt) {
-    console.log('Connected');
-    console.log('Logged in as: ');
-    console.log(bot.username + ' - (' + bot.id + ')');
-});
+// Transpile all code following this line with babel and use 'env' (aka ES6) preset.
+require('babel-register')({
+    presets: [ 'env' ]
+})
+
+// Import the rest of our application.
+module.exports = require('./src/bot.js')
