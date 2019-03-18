@@ -15,7 +15,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         const argument = commandArguments(message)[0];
 
         // Convert argument into a command. 
-        const currentCommand = currentCommand(argument);
+        const currentCommand = commandFromArgument(argument);
 
         // Response based on command
         sendResponse(currentCommand, channelID);
@@ -31,13 +31,13 @@ bot.on('ready', function (evt) {
 
 const commandArguments = (message) => {
     return message.substring(1).split(' ');
-}
+};
 const isCommand = (message) => {
     return message.substring(0, 1) === botCommandCharacter
-}
+};
 
 // Find command from given arguments and commandlist. 
-const currentCommand = (argument) => {
+const commandFromArgument = (argument) => {
     // By default take the first command from the list
     var returnableCommand = commands[0]
 
