@@ -6,9 +6,7 @@
     "author": "Ionisaatio",
     "scripts": {
         "babel-node": "babel-node --presets=env",
-        "start": "nodemon --exec babel-node src/index.js",
-        "build": "babel src -d dist",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "nodemon --exec babel-node src/index.js"
     },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
