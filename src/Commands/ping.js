@@ -2,8 +2,9 @@ import Command from '../Models/Command'
 
 function Ping () {
     Command.call(this);
-    this.syntaxIdentifier = 'ping';
+    this.syntaxIdentifier = ['ping'];
     this.message = "pong"
+    this.embeddedMessage = {}
 }
 Ping.prototype = Object.create(Command.prototype);
 Ping.prototype.constructor = Ping;

@@ -12,10 +12,10 @@ var bot = new Discord.Client({
 bot.on('message', function (user, userID, channelID, message, evt) {
     if (isCommand(message)) {
         // For now: Take the first argument. 
-        const argument = commandArguments(message)[0];
-
+        const arguments = commandArguments(message);
+        
         // Convert argument into a command. 
-        const currentCommand = commandFromArgument(argument);
+        const currentCommand = commandFromArguments(arguments);
 
         // Response based on command
         sendResponse(currentCommand, channelID);
@@ -29,15 +29,18 @@ bot.on('ready', function (evt) {
     console.log(bot.username + ' - (' + bot.id + ')');
 });
 
+// Remove the first character, then split each of the arguments into array. 
 const commandArguments = (message) => {
     return message.substring(1).split(' ');
 };
+
+// Ensure that its a command by detecting command character
 const isCommand = (message) => {
     return message.substring(0, 1) === botCommandCharacter
 };
 
 // Find command from given arguments and commandlist. 
-const commandFromArgument = (argument) => {
+const commandFromArguments = (arguments) => {
     // By default take the first command from the list
     var returnableCommand = commands[0]
 
@@ -57,6 +60,10 @@ function sendResponse(command, channelID) {
         to: channelID,
         message: command.message
     });
+}
+
+function sendMultilineResponse(){
+    bot.sendMessage()
 }
 
 export default bot
