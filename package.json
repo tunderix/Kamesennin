@@ -6,9 +6,9 @@
     "author": "Ionisaatio",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "nodemon server.js --exec babel-node",
+        "server": "nodemon src/index.js --exec babel-node",
         "heroku-postbuild": "npm install",
-        "start": "babel-node server.js"
+        "start": "babel-node src/index.js"
     },
     "dependencies": {
         "@babel/cli": "^7.0.0",
