@@ -5,14 +5,10 @@
     "main": "index.js",
     "author": "Ionisaatio",
     "scripts": {
-        "babel-node": "babel-node --presets=env",
-        "k-start": "nodemon --exec babel-node src/index.js",
-        "k-build": "babel src -d dist",
-        "k-test": "echo \"Error: no test specified\" && exit 1",
-        "clean": "rm -rf build && mkdir build",
-        "build-babel": "babel -d ./build ./src -s",
-        "build": "npm run clean && npm run build-babel",
-        "start": "npm run build && node ./build/index.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "nodemon server.js --exec babel-node",
+        "heroku-postbuild": "npm install",
+        "start": "babel-node server.js"
     },
     "dependencies": {
         "@babel/cli": "^7.0.0",
@@ -20,9 +16,9 @@
         "dotenv": "^7.0.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.3.4",
-        "@babel/node": "^7.0.0",
-        "@babel/preset-env": "^7.3.4",
-        "nodemon": "^1.18.10"
+        "babel": "6.23.0",
+        "babel-cli": "6.26.0",
+        "babel-preset-env": "1.6.0",
+        "nodemon": "1.11.0"
     }
 }
