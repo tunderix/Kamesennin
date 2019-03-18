@@ -6,7 +6,8 @@
     "author": "Ionisaatio",
     "scripts": {
         "babel-node": "babel-node --presets=env",
-        "start": "nodemon --exec babel-node src/index.js"
+        "start": "babel-node src/index.js",
+        "start-local": "nodemon --exec babel-node src/index.js"
     },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
