@@ -44,26 +44,52 @@ const commandFromArguments = (arguments) => {
     // By default take the first command from the list
     var returnableCommand = commands[0]
 
-    // Match command into argument and prepare to return it.
+    //First argument is the syntax identifier.
+    const syntaxIdentifier = arguments[0];
+
+    //Find command with syntaxIdentifier. 
     commands.forEach(command => {
-        if (command.syntaxIdentifier === argument) {
+        if (command.syntaxIdentifier === syntaxIdentifier) {
             returnableCommand = command;
         }
     });
+
+    // Intersection https://stackoverflow.com/questions/16227197/compute-intersection-of-two-arrays-in-javascript/16227294
+    // Find common ones from arguments and command parameters.
+    const subCommands = arguments.filter(function(n) {
+        return returnableCommand.commandParameters.indexOf(n) > -1;
+    });
+
+    //TODO! Process the subparameter actions
 
     return returnableCommand
 }
 
 // Send message to client! 
 function sendResponse(command, channelID) {
+
+    // Make sure which replymessage type should be used or BOTH
+    // MESSAGE // EMBEDDED
+    if(command.message != null){
+        sendBasicResponse(command, channelID);
+    }
+    if(command.embeddedMessage != null){
+        sendMultilineResponse(command, channelID);
+    }
+}
+
+function sendBasicResponse(command, channelID){
     bot.sendMessage({
         to: channelID,
         message: command.message
     });
 }
 
-function sendMultilineResponse(){
-    bot.sendMessage()
+function sendMultilineResponse(command, channelID){
+    bot.sendMessage({
+        to: channelID,
+        embed: command.embeddedMessage
+    });
 }
 
 export default bot

@@ -4,7 +4,6 @@ function Ping () {
     Command.call(this);
     this.syntaxIdentifier = ['ping'];
     this.message = "pong"
-    this.embeddedMessage = {}
 }
 Ping.prototype = Object.create(Command.prototype);
 Ping.prototype.constructor = Ping;

@@ -1,13 +1,17 @@
 function Command() {
 
-    //Array of command syntaxes. ex. !mulu mala jala
+    // Array of command syntaxes.
+    // User can launch same command with multiple identifiers. ex. !mulu !mala !jala
     this.syntaxIdentifier = [''];
+
+    // Array of parameters for command. !cmd param1 param2 param3
+    this.commandParameters = [''];
     
     // Response message :: When responding to discord message. 
-    this.message = "Ping!"
+    this.message = null //Should be string
 
     // Multiline message for lists
-    this.embeddedMessage = {}
+    this.embeddedMessage = null //Should be string
     /*
     FORMAT
     {
