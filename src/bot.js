@@ -1,6 +1,7 @@
 import botCommandCharacter from  './Utils/Constants.js'
 import commands from './Commands'
 import Discord from 'discord.io'
+import { isFunction } from './Utils/Helpers.js';
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
@@ -12,10 +13,13 @@ var bot = new Discord.Client({
 bot.on('message', function (user, userID, channelID, message, evt) {
     if (isCommand(message)) {
         // For now: Take the first argument. 
-        const arguments = commandArguments(message);
+        const arguments = argumentsFrom(message);
         
         // Convert argument into a command. 
         const currentCommand = commandFromArguments(arguments);
+
+        // Execute actions for command and subcommands
+        executeCommand(arguments, currentCommand);
 
         // Response based on command
         sendResponse(currentCommand, channelID);
@@ -30,7 +34,7 @@ bot.on('ready', function (evt) {
 });
 
 // Remove the first character, then split each of the arguments into array. 
-const commandArguments = (message) => {
+const argumentsFrom = (message) => {
     return message.substring(1).split(' ');
 };
 
@@ -54,15 +58,23 @@ const commandFromArguments = (arguments) => {
         }
     });
 
+    return returnableCommand
+}
+
+function executeCommand(arguments, command){
+
+    //Always first excecute action of a command. 
+    if(command.action != null){}
+    command.action();
+
     // Intersection https://stackoverflow.com/questions/16227197/compute-intersection-of-two-arrays-in-javascript/16227294
     // Find common ones from arguments and command parameters.
     const subCommands = arguments.filter(function(n) {
-        return returnableCommand.commandParameters.indexOf(n) > -1;
+        return command.commandParameters.indexOf(n) > -1;
     });
 
     //TODO! Process the subparameter actions
-
-    return returnableCommand
+    
 }
 
 // Send message to client! 

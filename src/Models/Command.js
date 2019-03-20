@@ -5,7 +5,21 @@ function Command() {
     this.syntaxIdentifier = [''];
 
     // Array of parameters for command. !cmd param1 param2 param3
-    this.commandParameters = [''];
+    this.commandParameters = [
+        {
+            syntaxIdentifier: "deta1",
+            action: function() { console.log("Some1"); }
+        },
+        {
+            syntaxIdentifier: "deta2",
+            action: function() { console.log("Some2"); }
+        }
+    ];
+
+    // Action as a FUNCTION
+    this.action = function() {  
+        console.log("Action");
+    };
     
     // Response message :: When responding to discord message. 
     this.message = null //Should be string
