@@ -1,3 +1,2 @@
-const botCommandCharacter = '!';
-
-export default botCommandCharacter;
+export const botCommandCharacter = '!';
+export const embedMessageAuthor = "Mutenroshi-sama";
