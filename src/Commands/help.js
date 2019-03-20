@@ -1,5 +1,5 @@
 import Command from '../Models/Command'
-import { embedMessageAuthor } from '../Utils/Constants'
+import { embedMessageAuthor, embedMessageColor } from '../Utils/Constants'
 
 function Help (commands) {
     Command.call(this);
@@ -22,7 +22,7 @@ function Help (commands) {
     }
     
     this.embeddedMessage = {
-        color: 3447003,
+        color: embedMessageColor,
         author: {
           name: embedMessageAuthor
         },

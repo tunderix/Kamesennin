@@ -64,8 +64,9 @@ const commandFromArguments = (arguments) => {
 function executeCommand(arguments, command){
 
     //Always first excecute action of a command. 
-    if(command.action != null){}
-    command.action();
+    if(isFunction(command.action)){
+        command.action();
+    }
 
     // Intersection https://stackoverflow.com/questions/16227197/compute-intersection-of-two-arrays-in-javascript/16227294
     // Find common ones from arguments and command parameters.
@@ -73,8 +74,12 @@ function executeCommand(arguments, command){
         return command.commandParameters.indexOf(n) > -1;
     });
 
-    //TODO! Process the subparameter actions
-    
+    // Excecute the subparameter actions
+    subCommands.forEach(sub => {
+        if(isFunction(sub.action)){
+            command.action();
+        }
+    });
 }
 
 // Send message to client! 
