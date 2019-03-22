@@ -60,8 +60,13 @@ function Command() {
     }
     */
 
-    this.sendMessageTrigger = null;
-    this.sendEmbeddedTrigger = null;
+    const sendMessage = () => {
+        if(this.message != null){
+            
+        }else if (this.embeddedMessage != null) {
+
+        }
+    }
 }
 
 export default Command

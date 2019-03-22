@@ -1,6 +1,6 @@
 import Command from '../Models/Command'
 import { SteamAPI } from '../SteamAPI/steamAPI'
-
+import SteamID from 'steamid'
 /*
 ******** FLOW ********
 **********************
@@ -10,6 +10,8 @@ import { SteamAPI } from '../SteamAPI/steamAPI'
 2. User can fetch records based on *username* 
 
 */
+
+const steamID = 
 
 function Dota () {
     Command.call(this);
@@ -29,8 +31,10 @@ function Dota () {
             action: fetchRecords(steamID)
         }
     ];
-    this.message = "Dotkoinfo!"
+    this.message = "Your "
 }
+
+const replyMessage = "Your steamID is: " + this.steamID;
 
 const onSuccessfulPlayerInfo = (data) => {
     //TODO: Reply based on data or something! 
@@ -40,12 +44,10 @@ const lookupSteamID = (username) => {
     SteamAPI.lookup(username, (steamIdData) => {
         //FORMAT: {"response":{"steamid":"76561198019428231","success":1}}
         // Bot.Message --> Players steamID is: 76561198019428231
-        if (this.sendMessageTrigger != null) {
-            this.sendMessageTrigger(this, channelID)
-        }else if(this.sendEmbeddedTrigger != null){
-            this.sendEmbeddedTrigger(this, channelID)
-        }
-        
+        const sid = new SteamID(""+steamIdData.response.steamid)
+        this.steamID = sid.getSteam2RenderedID()
+        this.message = replyMessage;
+        this.sendMessage();
     });
 }
 
