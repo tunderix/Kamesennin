@@ -59,6 +59,9 @@ function Command() {
         }
     }
     */
+
+    this.sendMessageTrigger = null;
+    this.sendEmbeddedTrigger = null;
 }
 
 export default Command

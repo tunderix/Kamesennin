@@ -18,6 +18,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         // Convert argument into a command. 
         const currentCommand = commandFromArguments(arguments);
 
+        // Command to execute message sending. 
+        currentCommand.sendMessageTrigger = sendBasicResponse;
+        currentCommand.sendEmbeddedTrigger = sendMultilineResponse;
+
         // Execute actions for command and subcommands
         executeCommand(arguments, currentCommand);
 
