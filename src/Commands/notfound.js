@@ -1,7 +1,18 @@
-export var notfound = function(){
+import Command from '../Models/Command'
+
+function NotFound () {
+    Command.call(this);
     this.message = squabble();
-    this.syntaxIdentifier = ['404'];
+    this.syntaxIdentifier = ['notfound'];
+    this.action = (bot, channelID) => {
+        bot.sendMessage({
+            to: channelID,
+            message: squabble()
+        });
+    };
 }
+NotFound.prototype = Object.create(Command.prototype);
+NotFound.prototype.constructor = NotFound;
 
 const squabble = () => {
     const texts = [
@@ -11,3 +22,5 @@ const squabble = () => {
     ]
     return texts[Math.floor(Math.random() * texts.length)];
 }
+
+export const notfound = new NotFound;

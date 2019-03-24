@@ -1,5 +1,5 @@
 import { botCommandCharacter } from  './Utils/Constants.js'
-import commands from './Commands'
+import { commands } from './Commands'
 import Discord from 'discord.io'
 import { isFunction } from './Utils/Helpers.js';
 
@@ -20,14 +20,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         
         // Convert argument into a command. 
         var currentCommand = commandFromArguments(botArguments);
-        console.log("The message was parsed as a command: " + currentCommand.syntaxIdentifier[0]);
+        console.log("The message was parsed as a command: " + currentCommand.syntaxIdentifier);
 
         // Command to execute message sending. 
         currentCommand.sendMessageTrigger = sendBasicResponse;
         currentCommand.sendEmbeddedTrigger = sendMultilineResponse;
 
         // Execute actions for command and subcommands
-        executeCommand(botArguments, currentCommand);
+        executeCommand(currentCommand, channelID);
 
         // Response based on command
         // sendResponse(currentCommand, channelID);
@@ -57,24 +57,44 @@ function isCommand(message){
 // Find command from given arguments and commandlist. 
 const commandFromArguments = (botArguments) => {
     // By default take the first command from the list
-    var returnableCommand = commands[0]
+    var returnableCommand = commands[0];
+    console.log("Set the default command to return " + returnableCommand);
 
     //First argument is the syntax identifier.
     const syntaxIdentifier = botArguments[0];
 
     //Find command with syntaxIdentifier. 
     commands.forEach(command => {
+        console.log("Going through command: " + command.syntaxIdentifier);
+        
         command.syntaxIdentifier.forEach(sid => {
+            console.log("syntaxIdentifier for command: " + sid);
             if (sid === syntaxIdentifier) {
+                console.log("Found a matching command with syntax identifier " + sid);
+                console.log("Set the command to return: " + sid);
                 returnableCommand = command;
             }
         })
+
+
+        /*
+        if(typeof command !== 'undefined' && typeof command.syntaxIdentifier !== 'undefined'){
+            command.syntaxIdentifier.forEach(sid => {
+                if (sid === syntaxIdentifier && typeof syntaxIdentifier !== 'undefined') {
+                    console.log("Found a matching command with syntax identifier " + sid);
+                    console.log("Set the command to return: " + sid);
+                    returnableCommand = command;
+                }
+            })
+        }
+        */
     });
 
+    console.log("Returning command:" + returnableCommand);
     return returnableCommand
 }
 
-function executeCommand(botArguments, command){
+function executeCommand(command, channelID){
 
     //Always first excecute action of a command. 
     if(isFunction(command.action)){
@@ -83,6 +103,7 @@ function executeCommand(botArguments, command){
 
     // Intersection https://stackoverflow.com/questions/16227197/compute-intersection-of-two-arrays-in-javascript/16227294
     // Find common ones from arguments and command parameters.
+    /*
     const subCommands = botArguments.filter(function(n) {
         return command.commandParameters.indexOf(n) > -1;
     });
@@ -93,6 +114,7 @@ function executeCommand(botArguments, command){
             command.action();
         }
     });
+    */
 }
 
 // Send message to client! 

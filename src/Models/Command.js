@@ -22,9 +22,13 @@ function Command() {
     // Action as a FUNCTION
     this.action = null;
     /*
-    function(bot, channelId) {  
-        console.log("Action");
-    };
+    this.action = (bot, channelID) => {
+        console.log("!");
+        bot.sendMessage({
+            to: channelID,
+            message: this.message
+        });
+    }
     */
     
     // Response message :: When responding to discord message. 
