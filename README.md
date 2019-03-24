@@ -2,7 +2,7 @@
 Discord Bot for Jontka Channel. 
 
 # Installation
-##Requirements
+## Requirements
 You need Node.js in order to develop and run the application. 
 
 ## Dependencies
@@ -30,3 +30,6 @@ Starting application launches bot.js, which launches discord bot with DISCORD_AU
 # Deploying changes into production
 Production is atm running in heroku. To deploy to heroku you use the "heroku-deploy" branch. Code will automatically deploy at this point.
 
+# Bot command structure
+Bot command structure is based on the following design.
+![Alt text](./documents/example.jpg?raw=true "Title")
