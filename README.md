@@ -33,3 +33,7 @@ Production is atm running in heroku. To deploy to heroku you use the "heroku-dep
 # Bot command structure
 Bot command structure is based on the following design.
 ![Alt text](./documents/example.jpg?raw=true "Title")
+RED: You use `!` to identify a command.
+GREEN: Array of prefixes for command. 
+YELLOW: Main command, which determines the action to be done. 
+BROWN: Parameters that are needed.  
