@@ -1,8 +1,10 @@
 import kamehameha from './kamehameha'
 import ping from './ping'
-import help from './help'
+import notfound from './notfound'
+//import help from './help'
 
-const help = help(ping, kamehameha)
-const commands = new Array(ping, kamehameha, help);
+//const commandArray = [ping, kamehameha];
+//const helpCommand = help(commandArray)
+const commands = new Array(notfound, ping, kamehameha);
 
 export default commands

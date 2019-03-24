@@ -22,7 +22,7 @@ function Command() {
     // Action as a FUNCTION
     this.action = null;
     /*
-    function() {  
+    function(bot, channelId) {  
         console.log("Action");
     };
     */

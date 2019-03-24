@@ -1,4 +1,4 @@
-import botCommandCharacter from  './Utils/Constants.js'
+import { botCommandCharacter } from  './Utils/Constants.js'
 import commands from './Commands'
 import Discord from 'discord.io'
 import { isFunction } from './Utils/Helpers.js';
@@ -11,22 +11,26 @@ var bot = new Discord.Client({
 
 // Listener for catching commands from bot. 
 bot.on('message', function (user, userID, channelID, message, evt) {
-    if (isCommand(message)) {
+    console.log("User " + user.username + "(" + userID + ")"+ "Sent message: " + message);
+    const isComm = isCommand(message);
+    if (isComm === true) {
+
         // For now: Take the first argument. 
-        const arguments = argumentsFrom(message);
+        var botArguments = argumentsFrom(message);
         
         // Convert argument into a command. 
-        const currentCommand = commandFromArguments(arguments);
+        var currentCommand = commandFromArguments(botArguments);
+        console.log("The message was parsed as a command: " + currentCommand.syntaxIdentifier[0]);
 
         // Command to execute message sending. 
         currentCommand.sendMessageTrigger = sendBasicResponse;
         currentCommand.sendEmbeddedTrigger = sendMultilineResponse;
 
         // Execute actions for command and subcommands
-        executeCommand(arguments, currentCommand);
+        executeCommand(botArguments, currentCommand);
 
         // Response based on command
-        sendResponse(currentCommand, channelID);
+        // sendResponse(currentCommand, channelID);
      }
 });
 
@@ -43,38 +47,43 @@ const argumentsFrom = (message) => {
 };
 
 // Ensure that its a command by detecting command character
-const isCommand = (message) => {
-    return message.substring(0, 1) === botCommandCharacter
+function isCommand(message){
+    const firstChar = message.substring(0, 1);
+    const isComm = (firstChar === botCommandCharacter)
+    console.log("First character of the message: " + firstChar + ", Bot command character is: " + botCommandCharacter + " --> isCommand is " + isComm);
+    return isComm;
 };
 
 // Find command from given arguments and commandlist. 
-const commandFromArguments = (arguments) => {
+const commandFromArguments = (botArguments) => {
     // By default take the first command from the list
     var returnableCommand = commands[0]
 
     //First argument is the syntax identifier.
-    const syntaxIdentifier = arguments[0];
+    const syntaxIdentifier = botArguments[0];
 
     //Find command with syntaxIdentifier. 
     commands.forEach(command => {
-        if (command.syntaxIdentifier === syntaxIdentifier) {
-            returnableCommand = command;
-        }
+        command.syntaxIdentifier.forEach(sid => {
+            if (sid === syntaxIdentifier) {
+                returnableCommand = command;
+            }
+        })
     });
 
     return returnableCommand
 }
 
-function executeCommand(arguments, command){
+function executeCommand(botArguments, command){
 
     //Always first excecute action of a command. 
     if(isFunction(command.action)){
-        command.action();
+        command.action(bot, channelID);
     }
 
     // Intersection https://stackoverflow.com/questions/16227197/compute-intersection-of-two-arrays-in-javascript/16227294
     // Find common ones from arguments and command parameters.
-    const subCommands = arguments.filter(function(n) {
+    const subCommands = botArguments.filter(function(n) {
         return command.commandParameters.indexOf(n) > -1;
     });
 
