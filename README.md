@@ -5,13 +5,13 @@ Discord Bot for Jontka Channel.
 ##Requirements
 You need Node.js in order to develop and run the application. 
 
-##Dependencies
+## Dependencies
 To install dependencies, run
-´npm install´
+`npm install`
 
-##Environmental variables
+## Environmental variables
 In order for you to *RUN* the application, you need to specify local variables. 
-Add ´.env´ file into your project root and apply the following information: 
+Add `.env` file into your project root and apply the following information: 
 ```
 DISCORD_AUTH_TOKEN=
 MONGODB_MLAB=
@@ -21,12 +21,12 @@ These configurations are only used while testing changes in local environment.
 
 In production these variables are found from heroku-application as environmental variables. 
 
-#Running Application
+# Running Application
 To run the bot:
-´npm start´
+`npm start`
 
 Starting application launches bot.js, which launches discord bot with DISCORD_AUTH_TOKEN -identifier. 
 
-#Deploying changes into production
+# Deploying changes into production
 Production is atm running in heroku. To deploy to heroku you use the "heroku-deploy" branch. Code will automatically deploy at this point.
 
