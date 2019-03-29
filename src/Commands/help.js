@@ -1,7 +1,13 @@
 import Command from '../Models/Command'
 import { embedMessageAuthor, embedMessageColor } from '../Utils/Constants'
 
-function Help (commands) {
+const commandData = [
+    {syntax:"kamehameha", desc:"Ki-wave"},
+    {syntax:"help", desc:"List of commands"},
+    {syntax:"ping", desc:"Checkup if working"},
+];
+
+function Help () {
     Command.call(this);
     
     this.syntaxIdentifier = ['help'];
@@ -9,27 +15,39 @@ function Help (commands) {
 
     const header = "Ahoy!";
     const desc = "Le Commandier for ya'";
-    const commandFields = [];
 
-    for (let index = 0; index < commands.length; index++) {
-        const command = commands[index];
-        const newField = { 
-            name: "Command " + index + " - ", 
-            value: "" + command.syntaxIdentifier + "",
-            inline: true
+
+    this.action = (bot, channelID) => {
+
+        const commandFields = [];
+
+        for (let index = 0; index < commandData.length; index++) {
+            const command = commandData[index];
+            const newField = { 
+                name: "!" + command.syntax + "", 
+                value: "" + command.desc + "",
+                inline: true
+            }
+            commandFields.push(newField)
         }
-        commandFields.push(newField)
+        
+        this.embeddedMessage = {
+            color: embedMessageColor,
+            author: {
+            name: embedMessageAuthor
+            },
+            title: header,
+            description: desc,
+            fields: commandFields
+        };
+        
+        bot.sendMessage({
+            to: channelID,
+            embed: this.embeddedMessage
+        });
     }
     
-    this.embeddedMessage = {
-        color: embedMessageColor,
-        author: {
-          name: embedMessageAuthor
-        },
-        title: header,
-        description: desc,
-        fields: commandFields
-    };
+    
 }
 
 Help.prototype = Object.create(Command.prototype);

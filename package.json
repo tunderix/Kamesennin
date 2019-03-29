@@ -17,8 +17,7 @@
         "steamid": "^1.1.0"
     },
     "devDependencies": {
-        "babel": "6.23.0",
-        "babel-cli": "6.26.0",
+        "babel-cli": "^6.26.0",
         "babel-preset-env": "1.6.0",
         "nodemon": "1.11.0"
     }

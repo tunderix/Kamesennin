@@ -64,11 +64,19 @@ function Command() {
     }
     */
 
-    const sendMessage = () => {
-        if(this.message != null){
-            
-        }else if (this.embeddedMessage != null) {
-
+    //Default command action is to send a message
+    this.action = (bot, channelID) => {
+        if(typeof this.message !== 'undefined'){
+            bot.sendMessage({
+                to: channelID,
+                message: this.message
+            });
+        }
+        if (typeof this.embeddedMessage !== 'undefined') {
+            bot.sendMessage({
+                to: channelID,
+                embed: this.embeddedMessage
+            });
         }
     }
 }
