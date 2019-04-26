@@ -11,56 +11,52 @@ import SteamID from 'steamid'
 
 */
 
-const steamID = 
+function Dota() {
+  Command.call(this)
 
-function Dota () {
-    Command.call(this);
-
-    this.syntaxIdentifier = ['dota', 'dotko', 'dota2'];
-    this.commandParameters = [
-        {
-            syntaxIdentifier: "lookup",
-            action: lookupSteamID(username)
-        },
-        {
-            syntaxIdentifier: "register",
-            action: registerSteamIDwithUsername(steamID, username)
-        },
-        {
-            syntaxIdentifier: "records",
-            action: fetchRecords(steamID)
-        }
-    ];
-    this.message = "Your "
+  this.syntaxIdentifier = ['dota', 'dotko', 'dota2']
+  this.commandParameters = [
+    {
+      syntaxIdentifier: 'lookup',
+      action: lookupSteamID(username),
+    },
+    {
+      syntaxIdentifier: 'register',
+      action: registerSteamIDwithUsername(steamID, username),
+    },
+    {
+      syntaxIdentifier: 'records',
+      action: fetchRecords(steamID),
+    },
+  ]
+  this.message = 'Your '
 }
 
-const replyMessage = "Your steamID is: " + this.steamID;
+const replyMessage = 'Your steamID is: ' + steamID
 
-const onSuccessfulPlayerInfo = (data) => {
-    //TODO: Reply based on data or something! 
+const onSuccessfulPlayerInfo = data => {
+  //TODO: Reply based on data or something!
 }
 
-const lookupSteamID = (username) => {
-    SteamAPI.lookup(username, (steamIdData) => {
-        //FORMAT: {"response":{"steamid":"76561198019428231","success":1}}
-        // Bot.Message --> Players steamID is: 76561198019428231
-        const sid = new SteamID(""+steamIdData.response.steamid)
-        this.steamID = sid.getSteam2RenderedID()
-        this.message = replyMessage;
-        this.sendMessage();
-    });
+const lookupSteamID = username => {
+  SteamAPI.lookup(username, steamIdData => {
+    //FORMAT: {"response":{"steamid":"76561198019428231","success":1}}
+    // Bot.Message --> Players steamID is: 76561198019428231
+    const sid = new SteamID('' + steamIdData.response.steamid)
+    this.steamID = sid.getSteam2RenderedID()
+    this.message = replyMessage
+    this.sendMessage()
+  })
 }
 
-const registerSteamIDwithUsername = (steamID, username) => {
-
-}
+const registerSteamIDwithUsername = (steamID, username) => {}
 
 const fetchRecords = (steamID, onSuccess) => {
-    SteamAPI.fetchPlayerInfo(steamID, onSuccess)
+  SteamAPI.fetchPlayerInfo(steamID, onSuccess)
 }
 
-Dota.prototype = Object.create(Command.prototype);
-Dota.prototype.constructor = Dota;
+Dota.prototype = Object.create(Command.prototype)
+Dota.prototype.constructor = Dota
 
-const dota = new Dota;
+const dota = new Dota()
 export default dota
